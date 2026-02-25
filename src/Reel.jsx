@@ -1670,7 +1670,7 @@ export default function Reel() {
         {/* ═══ WRONG / GAME OVER ═══ */}
         {(gameState === "wrong" || gameState === "gameover") && (
           <div style={{
-            textAlign: "center", paddingTop: 48, paddingBottom: 60,
+            textAlign: "center", paddingTop: 24, paddingBottom: 40,
             animation: "fadeIn 0.5s ease", position: "relative",
           }}>
             {chain > 0 && chain > bestChain - 1 && <div style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 200, overflow: "hidden" }}>
@@ -1701,13 +1701,13 @@ export default function Reel() {
               display: "inline-block", padding: "5px 14px", borderRadius: 14,
               background: "#D4C4A810", border: "1px solid #D4C4A818",
               fontSize: 11, fontFamily: "'Space Mono', monospace", color: "#6B8B5A",
-              letterSpacing: 2, marginBottom: 24,
+              letterSpacing: 2, marginBottom: 12,
             }}>
               YOUR REEL SCORE
             </div>
 
             <div style={{
-              fontSize: 96, fontFamily: "'Space Mono', monospace", fontWeight: 700,
+              fontSize: 80, fontFamily: "'Space Mono', monospace", fontWeight: 700,
               color: "#D4C4A8", lineHeight: 1, marginBottom: 4,
               transform: displayScore === chain && chain > 0 ? "scale(1)" : "scale(0.9)",
               transition: "transform 0.3s ease",
@@ -1718,17 +1718,17 @@ export default function Reel() {
               return showRank ? (
                 <div style={{
                   fontSize: 14, fontFamily: "'Syne', sans-serif", fontWeight: 700,
-                  letterSpacing: 4, color: "#6B8B5A", marginBottom: 8, textTransform: "uppercase",
+                  letterSpacing: 4, color: "#6B8B5A", marginBottom: 4, textTransform: "uppercase",
                   animation: "fadeIn 0.5s ease",
                 }}>Your Rank: {m.title}</div>
-              ) : <div style={{ height: 24 }} />;
+              ) : <div style={{ height: 20 }} />;
             })()}
 
             {showRank && chain > bestChain - 1 && chain > 0 && (
               <div style={{
                 display: "inline-block", padding: "4px 12px", borderRadius: 10,
                 background: "#D4C4A812", fontSize: 12, fontFamily: "'Space Mono', monospace",
-                color: "#D4C4A8", letterSpacing: 1, marginBottom: 40,
+                color: "#D4C4A8", letterSpacing: 1, marginBottom: 20,
               }}>
                 ★ NEW BEST
               </div>
@@ -1744,7 +1744,7 @@ export default function Reel() {
               return (
                 <div style={{
                   background: "#D4C4A806", borderRadius: 16, padding: "20px 24px",
-                  marginBottom: 32, textAlign: "left", border: "1px solid #D4C4A808",
+                  marginBottom: 20, textAlign: "left", border: "1px solid #D4C4A808",
                 }}>
                   <div style={{
                     fontSize: 11, letterSpacing: 2, color: "#6B8B5A",
@@ -1803,31 +1803,6 @@ export default function Reel() {
                       </div>
                     )}
                   </div>
-                </div>
-              );
-            })()}
-
-            {/* All-time best */}
-            {showRank && pastReels.length > 0 && (() => {
-              const allTimeBest = Math.max(...pastReels);
-              const bestRank = getMilestone(allTimeBest);
-              return (
-                <div style={{
-                  background: "#D4C4A806", borderRadius: 16, padding: "20px 24px",
-                  marginBottom: 32, textAlign: "center", border: "1px solid #D4C4A808",
-                }}>
-                  <div style={{
-                    fontSize: 11, letterSpacing: 2, color: "#6B8B5A",
-                    textTransform: "uppercase", marginBottom: 16, fontFamily: "'Space Mono', monospace",
-                  }}>All-Time Best</div>
-                  <div style={{
-                    fontSize: 48, fontFamily: "'Space Mono', monospace", fontWeight: 700,
-                    color: "#D4C4A8", lineHeight: 1, marginBottom: 4,
-                  }}>{allTimeBest}</div>
-                  <div style={{
-                    fontSize: 12, fontFamily: "'Syne', sans-serif", fontWeight: 700,
-                    letterSpacing: 3, color: "#6B8B5A", textTransform: "uppercase",
-                  }}>{bestRank.title}</div>
                 </div>
               );
             })()}
