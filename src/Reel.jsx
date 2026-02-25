@@ -1346,7 +1346,7 @@ const CAT_LABELS = {
   year: "RELEASE", cast: "CAST", director: "DIRECTOR", oscar: "AWARDS", quote: "QUOTES", trivia: "TRIVIA", bts: "BEHIND THE SCENES", soundtrack: "SOUNDTRACK", boxoffice: "BOX OFFICE",
 };
 const CAT_COLORS = {
-  year: "#E8E0C4", cast: "#E5AF1E", director: "#E8E0C4", oscar: "#E5AF1E", quote: "#E8E0C4", trivia: "#E5AF1E", bts: "#E8E0C4", soundtrack: "#E5AF1E", boxoffice: "#E8E0C4",
+  year: "#A0A3CC", cast: "#2A1833", director: "#A0A3CC", oscar: "#2A1833", quote: "#A0A3CC", trivia: "#2A1833", bts: "#A0A3CC", soundtrack: "#2A1833", boxoffice: "#A0A3CC",
 };
 
 export default function Reel() {
@@ -1446,7 +1446,7 @@ export default function Reel() {
   }, [gameState, chain]);
 
   const currentQ = questions[current];
-  const catColor = currentQ ? CAT_COLORS[currentQ.cat] : "#E5AF1E";
+  const catColor = currentQ ? CAT_COLORS[currentQ.cat] : "#2A1833";
 
   // Chain milestones
   const getMilestone = (c) => {
@@ -1470,8 +1470,8 @@ export default function Reel() {
   return (
     <div style={{
       minHeight: "100vh",
-      background: "#1E1C1A",
-      color: "#E5AF1E",
+      background: "#2A1833",
+      color: "#FFD036",
       fontFamily: "'DM Sans', sans-serif",
       position: "relative",
       overflow: "hidden",
@@ -1479,7 +1479,7 @@ export default function Reel() {
       {pulse && (
         <div style={{
           position: "fixed", inset: 0, pointerEvents: "none", zIndex: 98,
-          background: "radial-gradient(ellipse at center, rgba(229,175,30,0.06) 0%, transparent 60%)",
+          background: "radial-gradient(ellipse at center, rgba(42,24,51,0.06) 0%, transparent 60%)",
           animation: "pulseGlow 0.4s ease-out",
         }} />
       )}
@@ -1494,8 +1494,8 @@ export default function Reel() {
           <div style={{ textAlign: "center", paddingTop: 80 }}>
             <div style={{
               display: "inline-block", padding: "6px 16px", borderRadius: 20,
-              background: "#E8E0C420", border: "1px solid #E8E0C440",
-              fontSize: 11, fontFamily: "'Space Mono', monospace", color: "#E8E0C4",
+              background: "#A0A3CC20", border: "1px solid #A0A3CC40",
+              fontSize: 11, fontFamily: "'Space Mono', monospace", color: "#A0A3CC",
               letterSpacing: 2, marginBottom: 32,
             }}>
               LIGHTS. CAMERA. TRIVIA.
@@ -1503,18 +1503,18 @@ export default function Reel() {
 
             <h1 style={{
               fontSize: 72, fontWeight: 800, fontFamily: "'Syne', sans-serif",
-              color: "#E5AF1E", margin: "0 0 12px", lineHeight: 0.9, letterSpacing: -2,
+              color: "#2A1833", margin: "0 0 12px", lineHeight: 0.9, letterSpacing: -2,
             }}>reel</h1>
 
             <p style={{
-              fontSize: 16, fontFamily: "'DM Sans', sans-serif", color: "#E8E0C4",
+              fontSize: 16, fontFamily: "'DM Sans', sans-serif", color: "#A0A3CC",
               lineHeight: 1.6, maxWidth: 280, margin: "0 auto 48px", fontWeight: 400,
             }}>
               How long can you keep the chain alive?
             </p>
 
             <button onClick={startGame} style={{
-              background: "#E5AF1E", color: "#1E1C1A", border: "none",
+              background: "#2A1833", color: "#FFD036", border: "none",
               padding: "16px 56px", borderRadius: 40,
               fontSize: 15, fontWeight: 700, fontFamily: "'Syne', sans-serif",
               letterSpacing: 2, textTransform: "uppercase", cursor: "pointer",
@@ -1528,9 +1528,9 @@ export default function Reel() {
 
             {bestChain > 0 && (
               <div style={{
-                marginTop: 32, fontSize: 13, fontFamily: "'Space Mono', monospace", color: "#E8E0C4",
+                marginTop: 32, fontSize: 13, fontFamily: "'Space Mono', monospace", color: "#A0A3CC",
               }}>
-                best: <span style={{ color: "#E5AF1E" }}>{bestChain}</span>
+                best: <span style={{ color: "#2A1833" }}>{bestChain}</span>
               </div>
             )}
           </div>
@@ -1549,26 +1549,26 @@ export default function Reel() {
             }}>
               <div style={{ display: "flex", alignItems: "baseline", gap: 0 }}>
                 <span style={{
-                  fontSize: 28, fontFamily: "'Space Mono', monospace", fontWeight: 700, color: "#E5AF1E",
+                  fontSize: 28, fontFamily: "'Space Mono', monospace", fontWeight: 700, color: "#2A1833",
                 }}>{chain}</span>
               </div>
             </div>
 
-            <div style={{ height: 3, background: "#E5AF1E15", borderRadius: 2, marginBottom: 32, overflow: "hidden" }}>
+            <div style={{ height: 3, background: "#2A183315", borderRadius: 2, marginBottom: 32, overflow: "hidden" }}>
               <div style={{
                 height: "100%",
                 width: `${Math.min(((current) / Math.max(questions.length - 1, 1)) * 100, 100)}%`,
-                background: "#E5AF1E", borderRadius: 2, transition: "width 0.5s ease",
+                background: "#2A1833", borderRadius: 2, transition: "width 0.5s ease",
               }} />
             </div>
 
             <div style={{
-              background: "#E5AF1E08", borderRadius: 16, padding: "36px 28px",
-              marginBottom: 20, border: "1px solid #E5AF1E10",
+              background: "#2A183308", borderRadius: 16, padding: "36px 28px",
+              marginBottom: 20, border: "1px solid #2A183310",
             }}>
               <h2 style={{
                 fontSize: 22, fontWeight: 600, fontFamily: "'Syne', sans-serif",
-                color: "#E5AF1E", margin: 0, lineHeight: 1.35, textAlign: "center",
+                color: "#2A1833", margin: 0, lineHeight: 1.35, textAlign: "center",
               }}>
                 {currentQ.q}
               </h2>
@@ -1576,18 +1576,18 @@ export default function Reel() {
 
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               {currentQ.options.map((opt, i) => {
-                let bg = "#E5AF1E06";
-                let border = "#E5AF1E18";
-                let color = "#E5AF1E";
+                let bg = "#2A183306";
+                let border = "#2A183318";
+                let color = "#2A1833";
                 let weight = 500;
 
                 if (showResult) {
                   if (opt === currentQ.answer) {
-                    bg = "#E5AF1E"; border = "#E5AF1E"; color = "#1E1C1A"; weight = 600;
+                    bg = "#2A1833"; border = "#2A1833"; color = "#FFD036"; weight = 600;
                   } else if (opt === selected && !isCorrect) {
-                    bg = "#D1382B"; border = "#D1382B"; color = "#1E1C1A"; weight = 600;
+                    bg = "#F24F13"; border = "#F24F13"; color = "#FFD036"; weight = 600;
                   } else {
-                    bg = "#E5AF1E04"; border = "#E5AF1E08"; color = "#E5AF1E22";
+                    bg = "#2A183304"; border = "#2A183308"; color = "#2A183322";
                   }
                 }
 
@@ -1601,19 +1601,19 @@ export default function Reel() {
                     display: "flex", alignItems: "center", gap: 14,
                   }}
                   onMouseEnter={(e) => {
-                    if (!showResult) { e.target.style.borderColor = "#E5AF1E50"; e.target.style.background = "#E5AF1E10"; }
+                    if (!showResult) { e.target.style.borderColor = "#2A183350"; e.target.style.background = "#2A183310"; }
                   }}
                   onMouseLeave={(e) => {
-                    if (!showResult && opt !== selected) { e.target.style.borderColor = "#E5AF1E18"; e.target.style.background = "#E5AF1E06"; }
+                    if (!showResult && opt !== selected) { e.target.style.borderColor = "#2A183318"; e.target.style.background = "#2A183306"; }
                   }}
                   >
                     <span style={{
                       width: 28, height: 28, borderRadius: 8,
-                      background: showResult && opt === currentQ.answer ? "#1E1C1A20" : showResult && opt === selected && !isCorrect ? "#1E1C1A20" : "#E5AF1E10",
-                      border: `1px solid ${showResult && (opt === currentQ.answer || (opt === selected && !isCorrect)) ? "#1E1C1A15" : "#E5AF1E15"}`,
+                      background: showResult && opt === currentQ.answer ? "#FFD03620" : showResult && opt === selected && !isCorrect ? "#FFD03620" : "#2A183310",
+                      border: `1px solid ${showResult && (opt === currentQ.answer || (opt === selected && !isCorrect)) ? "#FFD03615" : "#2A183315"}`,
                       display: "flex", alignItems: "center", justifyContent: "center",
                       fontSize: 12, fontFamily: "'Space Mono', monospace", fontWeight: 700,
-                      color: showResult && (opt === currentQ.answer || (opt === selected && !isCorrect)) ? "#1E1C1A" : "#E8E0C4",
+                      color: showResult && (opt === currentQ.answer || (opt === selected && !isCorrect)) ? "#FFD036" : "#A0A3CC",
                       flexShrink: 0,
                     }}>
                       {String.fromCharCode(65 + i)}
@@ -1628,7 +1628,7 @@ export default function Reel() {
               <div style={{
                 textAlign: "center", marginTop: 20,
                 fontSize: 14, fontFamily: "'DM Sans', sans-serif", fontStyle: "italic",
-                color: "#E8E0C4", animation: "fadeIn 0.3s ease",
+                color: "#A0A3CC", animation: "fadeIn 0.3s ease",
               }}>
                 {currentQ.detail}
               </div>
@@ -1646,7 +1646,7 @@ export default function Reel() {
               <div style={{
                 position: "absolute", left: "50%", top: "28%",
                 width: 200, height: 200, transform: "translate(-50%, -50%)",
-                background: "radial-gradient(circle, rgba(229,175,30,0.15) 0%, rgba(230,234,215,0) 70%)",
+                background: "radial-gradient(circle, rgba(42,24,51,0.15) 0%, rgba(230,234,215,0) 70%)",
                 animation: "confettiFlash 0.3s ease-out forwards",
               }} />
               {Array.from({ length: 120 }).map((_, i) => {
@@ -1655,7 +1655,7 @@ export default function Reel() {
                 const tx = Math.cos(angle * Math.PI / 180) * dist;
                 const ty = Math.sin(angle * Math.PI / 180) * dist - 15;
                 const size = 2 + Math.random() * 8;
-                const colors = ["#D4A017", "#E5AF1E", "#D1382B", "#D4A017", "#E8E0C4", "#1E1C1A"];
+                const colors = ["#D4A017", "#2A1833", "#F24F13", "#D4A017", "#A0A3CC", "#FFD036"];
                 const color = colors[i % colors.length];
                 const dur = 0.25 + Math.random() * 0.35;
                 const delay = Math.random() * 0.06;
@@ -1676,8 +1676,8 @@ export default function Reel() {
 
             <div style={{
               display: "inline-block", padding: "5px 14px", borderRadius: 14,
-              background: "#E5AF1E10", border: "1px solid #E5AF1E18",
-              fontSize: 11, fontFamily: "'Space Mono', monospace", color: "#E8E0C4",
+              background: "#2A183310", border: "1px solid #2A183318",
+              fontSize: 11, fontFamily: "'Space Mono', monospace", color: "#A0A3CC",
               letterSpacing: 2, marginBottom: 24,
             }}>
               YOUR REEL SCORE
@@ -1685,7 +1685,7 @@ export default function Reel() {
 
             <div style={{
               fontSize: 96, fontFamily: "'Space Mono', monospace", fontWeight: 700,
-              color: "#E5AF1E", lineHeight: 1, marginBottom: 4,
+              color: "#2A1833", lineHeight: 1, marginBottom: 4,
             }}>{chain}</div>
 
             {(() => {
@@ -1693,7 +1693,7 @@ export default function Reel() {
               return (
                 <div style={{
                   fontSize: 14, fontFamily: "'Syne', sans-serif", fontWeight: 700,
-                  letterSpacing: 4, color: "#E8E0C4", marginBottom: 8, textTransform: "uppercase",
+                  letterSpacing: 4, color: "#A0A3CC", marginBottom: 8, textTransform: "uppercase",
                 }}>Your Rank: {m.title}</div>
               );
             })()}
@@ -1701,8 +1701,8 @@ export default function Reel() {
             {chain > bestChain - 1 && chain > 0 && (
               <div style={{
                 display: "inline-block", padding: "4px 12px", borderRadius: 10,
-                background: "#E5AF1E12", fontSize: 12, fontFamily: "'Space Mono', monospace",
-                color: "#E5AF1E", letterSpacing: 1, marginBottom: 40,
+                background: "#2A183312", fontSize: 12, fontFamily: "'Space Mono', monospace",
+                color: "#2A1833", letterSpacing: 1, marginBottom: 40,
               }}>
                 ★ NEW BEST
               </div>
@@ -1717,11 +1717,11 @@ export default function Reel() {
               const maxVal = Math.max(allTimeBest, 1);
               return (
                 <div style={{
-                  background: "#E5AF1E06", borderRadius: 16, padding: "20px 24px",
-                  marginBottom: 32, textAlign: "left", border: "1px solid #E5AF1E08",
+                  background: "#2A183306", borderRadius: 16, padding: "20px 24px",
+                  marginBottom: 32, textAlign: "left", border: "1px solid #2A183308",
                 }}>
                   <div style={{
-                    fontSize: 11, letterSpacing: 2, color: "#E8E0C4",
+                    fontSize: 11, letterSpacing: 2, color: "#A0A3CC",
                     textTransform: "uppercase", marginBottom: 16, fontFamily: "'Space Mono', monospace",
                   }}>Your Last Reels</div>
                   <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -1732,20 +1732,20 @@ export default function Reel() {
                       return (
                         <div key={`session-${i}`} style={{ display: "flex", alignItems: "center", gap: 12 }}>
                           <span style={{
-                            fontFamily: "'Space Mono', monospace", fontSize: 11, color: "#E8E0C4",
+                            fontFamily: "'Space Mono', monospace", fontSize: 11, color: "#A0A3CC",
                             minWidth: 20, textAlign: "right",
                           }}>{gameNum}</span>
-                          <div style={{ flex: 1, height: 32, background: "#E5AF1E08", borderRadius: 8, overflow: "hidden" }}>
+                          <div style={{ flex: 1, height: 32, background: "#2A183308", borderRadius: 8, overflow: "hidden" }}>
                             <div style={{
                               height: "100%", width: `${Math.max((score / maxVal) * 100, 12)}%`,
-                              background: isLatest ? "#E5AF1E" : "#E8E0C4",
+                              background: isLatest ? "#2A1833" : "#A0A3CC",
                               borderRadius: 8, display: "flex", alignItems: "center",
                               justifyContent: "flex-end", paddingRight: 10,
                               transition: "width 0.6s ease",
                             }}>
                               <span style={{
                                 fontFamily: "'Space Mono', monospace", fontSize: 12,
-                                fontWeight: 700, color: "#1E1C1A",
+                                fontWeight: 700, color: "#FFD036",
                               }}>{score}</span>
                             </div>
                           </div>
@@ -1755,25 +1755,25 @@ export default function Reel() {
                     {showBestBar && (
                       <div style={{
                         display: "flex", alignItems: "center", gap: 12, marginTop: 4,
-                        borderTop: "1px solid #E5AF1E10", paddingTop: 12,
+                        borderTop: "1px solid #2A183310", paddingTop: 12,
                       }}>
                         <span style={{
-                          fontFamily: "'Space Mono', monospace", fontSize: 10, color: "#E5AF1E",
+                          fontFamily: "'Space Mono', monospace", fontSize: 10, color: "#2A1833",
                           minWidth: 20, textAlign: "right",
                         }}>★</span>
-                        <div style={{ flex: 1, height: 32, background: "#E5AF1E08", borderRadius: 8, overflow: "hidden" }}>
+                        <div style={{ flex: 1, height: 32, background: "#2A183308", borderRadius: 8, overflow: "hidden" }}>
                           <div style={{
                             height: "100%", width: `${Math.max((allTimeBest / maxVal) * 100, 12)}%`,
-                            background: "#E5AF1E", borderRadius: 8, opacity: 0.6,
+                            background: "#2A1833", borderRadius: 8, opacity: 0.6,
                             display: "flex", alignItems: "center", justifyContent: "flex-end", paddingRight: 10,
                           }}>
                             <span style={{
                               fontFamily: "'Space Mono', monospace", fontSize: 12,
-                              fontWeight: 700, color: "#1E1C1A",
+                              fontWeight: 700, color: "#FFD036",
                             }}>{allTimeBest}</span>
                           </div>
                         </div>
-                        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "#E8E0C4", letterSpacing: 1 }}>BEST</span>
+                        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "#A0A3CC", letterSpacing: 1 }}>BEST</span>
                       </div>
                     )}
                   </div>
@@ -1787,20 +1787,20 @@ export default function Reel() {
               const bestRank = getMilestone(allTimeBest);
               return (
                 <div style={{
-                  background: "#E5AF1E06", borderRadius: 16, padding: "20px 24px",
-                  marginBottom: 32, textAlign: "center", border: "1px solid #E5AF1E08",
+                  background: "#2A183306", borderRadius: 16, padding: "20px 24px",
+                  marginBottom: 32, textAlign: "center", border: "1px solid #2A183308",
                 }}>
                   <div style={{
-                    fontSize: 11, letterSpacing: 2, color: "#E8E0C4",
+                    fontSize: 11, letterSpacing: 2, color: "#A0A3CC",
                     textTransform: "uppercase", marginBottom: 16, fontFamily: "'Space Mono', monospace",
                   }}>All-Time Best</div>
                   <div style={{
                     fontSize: 48, fontFamily: "'Space Mono', monospace", fontWeight: 700,
-                    color: "#E5AF1E", lineHeight: 1, marginBottom: 4,
+                    color: "#2A1833", lineHeight: 1, marginBottom: 4,
                   }}>{allTimeBest}</div>
                   <div style={{
                     fontSize: 12, fontFamily: "'Syne', sans-serif", fontWeight: 700,
-                    letterSpacing: 3, color: "#E8E0C4", textTransform: "uppercase",
+                    letterSpacing: 3, color: "#A0A3CC", textTransform: "uppercase",
                   }}>{bestRank.title}</div>
                 </div>
               );
@@ -1808,7 +1808,7 @@ export default function Reel() {
 
             <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
               <button onClick={startGame} style={{
-                background: "#E5AF1E", color: "#1E1C1A", border: "none",
+                background: "#2A1833", color: "#FFD036", border: "none",
                 padding: "14px 36px", borderRadius: 30,
                 fontSize: 14, fontWeight: 700, fontFamily: "'Syne', sans-serif",
                 letterSpacing: 2, textTransform: "uppercase", cursor: "pointer",
@@ -1829,15 +1829,15 @@ export default function Reel() {
                   navigator.clipboard.writeText(text + " " + url);
                 }
               }} style={{
-                background: "transparent", color: "#E5AF1E",
-                border: "1.5px solid #E5AF1E40",
+                background: "transparent", color: "#2A1833",
+                border: "1.5px solid #2A183340",
                 padding: "14px 28px", borderRadius: 30,
                 fontSize: 14, fontWeight: 700, fontFamily: "'Syne', sans-serif",
                 letterSpacing: 2, textTransform: "uppercase", cursor: "pointer",
                 transition: "all 0.2s",
               }}
-              onMouseEnter={(e) => { e.target.style.borderColor = "#E5AF1E80"; }}
-              onMouseLeave={(e) => { e.target.style.borderColor = "#E5AF1E40"; }}
+              onMouseEnter={(e) => { e.target.style.borderColor = "#2A183380"; }}
+              onMouseLeave={(e) => { e.target.style.borderColor = "#2A183340"; }}
               >
                 SHARE
               </button>
@@ -1868,10 +1868,10 @@ export default function Reel() {
           15% { opacity: 1; transform: translate(-50%, -50%) scale(1.5); }
           100% { opacity: 0; transform: translate(-50%, -50%) scale(2.5); }
         }
-        ::selection { background: #E5AF1E30; }
+        ::selection { background: #2A183330; }
         ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #1E1C1A; }
-        ::-webkit-scrollbar-thumb { background: #E8E0C4; border-radius: 4px; }
+        ::-webkit-scrollbar-track { background: #FFD036; }
+        ::-webkit-scrollbar-thumb { background: #A0A3CC; border-radius: 4px; }
       `}</style>
     </div>
   );
