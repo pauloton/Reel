@@ -1366,6 +1366,7 @@ export default function Reel() {
     try { const s = localStorage.getItem("reel_pastReels"); return s ? JSON.parse(s) : []; } catch { return []; }
   });
   const [pulse, setPulse] = useState(false);
+  const [displayScore, setDisplayScore] = useState(0);
   const timerRef = useRef(null);
 
   // Persist to localStorage
@@ -1445,6 +1446,24 @@ export default function Reel() {
     }
   }, [gameState, chain]);
 
+  // Animated score count-up
+  useEffect(() => {
+    if (gameState === "wrong" || gameState === "gameover") {
+      setDisplayScore(0);
+      if (chain === 0) return;
+      const duration = 1200;
+      const steps = Math.min(chain, 30);
+      const stepTime = duration / steps;
+      let step = 0;
+      const timer = setInterval(() => {
+        step++;
+        setDisplayScore(Math.round((step / steps) * chain));
+        if (step >= steps) clearInterval(timer);
+      }, stepTime);
+      return () => clearInterval(timer);
+    }
+  }, [gameState, chain]);
+
   const currentQ = questions[current];
   const catColor = currentQ ? CAT_COLORS[currentQ.cat] : "#D4C4A8";
 
@@ -1475,6 +1494,7 @@ export default function Reel() {
       fontFamily: "'DM Sans', sans-serif",
       position: "relative",
       overflow: "hidden",
+      overflowY: gameState === "wrong" || gameState === "gameover" ? "auto" : "hidden",
     }}>
       {pulse && (
         <div style={{
@@ -1639,36 +1659,28 @@ export default function Reel() {
         {/* ═══ WRONG / GAME OVER ═══ */}
         {(gameState === "wrong" || gameState === "gameover") && (
           <div style={{
-            textAlign: "center", paddingTop: 48,
+            textAlign: "center", paddingTop: 48, paddingBottom: 60,
             animation: "fadeIn 0.5s ease", position: "relative",
           }}>
             <div style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 200, overflow: "hidden" }}>
-              <div style={{
-                position: "absolute", left: "50%", top: "28%",
-                width: 200, height: 200, transform: "translate(-50%, -50%)",
-                background: "radial-gradient(circle, rgba(230,234,215,0.6) 0%, rgba(230,234,215,0) 70%)",
-                animation: "confettiFlash 0.3s ease-out forwards",
-              }} />
-              {Array.from({ length: 120 }).map((_, i) => {
-                const angle = (i / 120) * 360 + (Math.random() - 0.5) * 30;
-                const dist = 50 + Math.random() * 80;
-                const tx = Math.cos(angle * Math.PI / 180) * dist;
-                const ty = Math.sin(angle * Math.PI / 180) * dist - 15;
-                const size = 2 + Math.random() * 8;
+              {Array.from({ length: 80 }).map((_, i) => {
+                const x = Math.random() * 100;
+                const size = 4 + Math.random() * 10;
                 const colors = ["#D4C4A8", "#6B8B5A", "#C8503A", "#D4C4A8", "#6B8B5A", "#C8503A"];
                 const color = colors[i % colors.length];
-                const dur = 0.25 + Math.random() * 0.35;
-                const delay = Math.random() * 0.06;
-                const rot = Math.random() * 1080;
-                const shapes = ["50%", "0", "50% 0 50% 50%"];
+                const dur = 1.5 + Math.random() * 2;
+                const delay = Math.random() * 1.2;
+                const drift = (Math.random() - 0.5) * 40;
+                const rot = Math.random() * 720;
+                const shapes = ["50%", "2px", "50% 0 50% 50%"];
                 return (
                   <div key={`conf-${i}`} style={{
-                    position: "absolute", left: "50%", top: "28%",
-                    width: size, height: size * (0.8 + Math.random() * 1.2),
+                    position: "absolute", left: `${x}%`, top: -20,
+                    width: size, height: size * (0.6 + Math.random() * 1.4),
                     background: color, borderRadius: shapes[i % shapes.length],
-                    opacity: 1, transform: "translate(-50%, -50%) scale(0)",
-                    animation: `confettiBurst ${dur}s cubic-bezier(.15,.8,.2,1) ${delay}s forwards`,
-                    ["--tx"]: `${tx}vw`, ["--ty"]: `${ty}vh`, ["--rot"]: `${rot}deg`,
+                    opacity: 0,
+                    animation: `confettiRain ${dur}s ease-out ${delay}s forwards`,
+                    ["--drift"]: `${drift}px`, ["--rot"]: `${rot}deg`,
                   }} />
                 );
               })}
@@ -1686,7 +1698,9 @@ export default function Reel() {
             <div style={{
               fontSize: 96, fontFamily: "'Space Mono', monospace", fontWeight: 700,
               color: "#D4C4A8", lineHeight: 1, marginBottom: 4,
-            }}>{chain}</div>
+              transform: displayScore === chain && chain > 0 ? "scale(1)" : "scale(0.9)",
+              transition: "transform 0.3s ease",
+            }}>{displayScore}</div>
 
             {(() => {
               const m = getMilestone(chain);
@@ -1857,16 +1871,10 @@ export default function Reel() {
           30% { opacity: 1; }
           100% { opacity: 0; }
         }
-        @keyframes confettiBurst {
-          0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 1; }
-          10% { transform: translate(calc(-50% + var(--tx) * 0.5), calc(-50% + var(--ty) * 0.5)) scale(1.3) rotate(calc(var(--rot) * 0.4)); opacity: 1; }
-          60% { transform: translate(calc(-50% + var(--tx) * 0.9), calc(-50% + var(--ty) * 0.9)) scale(0.8) rotate(calc(var(--rot) * 0.8)); opacity: 0.8; }
-          100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty) + 10vh)) scale(0) rotate(var(--rot)); opacity: 0; }
-        }
-        @keyframes confettiFlash {
-          0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
-          15% { opacity: 1; transform: translate(-50%, -50%) scale(1.5); }
-          100% { opacity: 0; transform: translate(-50%, -50%) scale(2.5); }
+        @keyframes confettiRain {
+          0% { opacity: 1; transform: translateY(0) translateX(0) rotate(0deg); }
+          80% { opacity: 0.8; }
+          100% { opacity: 0; transform: translateY(110vh) translateX(var(--drift)) rotate(var(--rot)); }
         }
         ::selection { background: #D4C4A830; }
         ::-webkit-scrollbar { width: 4px; }
