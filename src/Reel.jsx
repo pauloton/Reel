@@ -1673,7 +1673,7 @@ export default function Reel() {
             textAlign: "center", paddingTop: 48, paddingBottom: 60,
             animation: "fadeIn 0.5s ease", position: "relative",
           }}>
-            <div style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 200, overflow: "hidden" }}>
+            {chain > 0 && chain > bestChain - 1 && <div style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 200, overflow: "hidden" }}>
               {Array.from({ length: 80 }).map((_, i) => {
                 const x = Math.random() * 100;
                 const size = 4 + Math.random() * 10;
@@ -1695,7 +1695,7 @@ export default function Reel() {
                   }} />
                 );
               })}
-            </div>
+            </div>}
 
             <div style={{
               display: "inline-block", padding: "5px 14px", borderRadius: 14,
