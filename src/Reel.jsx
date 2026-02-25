@@ -1458,20 +1458,23 @@ export default function Reel() {
     if (gameState === "wrong" || gameState === "gameover") {
       setDisplayScore(0);
       setShowRank(false);
-      if (chain === 0) { setShowRank(true); return; }
-      const duration = 800;
-      const steps = Math.min(chain, 20);
-      const stepTime = duration / steps;
-      let step = 0;
-      const timer = setInterval(() => {
-        step++;
-        setDisplayScore(Math.round((step / steps) * chain));
-        if (step >= steps) {
-          clearInterval(timer);
-          setTimeout(() => setShowRank(true), 200);
+      if (chain === 0) { setTimeout(() => setShowRank(true), 300); return; }
+      const duration = 1400;
+      let frameId;
+      const startTime = performance.now();
+      const animate = (now) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setDisplayScore(Math.round(eased * chain));
+        if (progress < 1) {
+          frameId = requestAnimationFrame(animate);
+        } else {
+          setTimeout(() => setShowRank(true), 300);
         }
-      }, stepTime);
-      return () => clearInterval(timer);
+      };
+      frameId = requestAnimationFrame(animate);
+      return () => cancelAnimationFrame(frameId);
     }
   }, [gameState, chain]);
 
@@ -1679,8 +1682,8 @@ export default function Reel() {
                 const size = 4 + Math.random() * 10;
                 const colors = ["#D4C4A8", "#6B8B5A", "#C8503A", "#D4C4A8", "#6B8B5A", "#C8503A"];
                 const color = colors[i % colors.length];
-                const dur = 0.6 + Math.random() * 0.8;
-                const delay = Math.random() * 0.4;
+                const dur = 2.2 + Math.random() * 1.8;
+                const delay = Math.random() * 0.8;
                 const drift = (Math.random() - 0.5) * 40;
                 const rot = Math.random() * 720;
                 const shapes = ["50%", "2px", "50% 0 50% 50%"];
@@ -1690,7 +1693,7 @@ export default function Reel() {
                     width: size, height: size * (0.6 + Math.random() * 1.4),
                     background: color, borderRadius: shapes[i % shapes.length],
                     opacity: 0,
-                    animation: `confettiRain ${dur}s ease-out ${delay}s forwards`,
+                    animation: `confettiRain ${dur}s cubic-bezier(0.25, 0.1, 0.25, 1) ${delay}s forwards`,
                     ["--drift"]: `${drift}px`, ["--rot"]: `${rot}deg`,
                   }} />
                 );
@@ -1778,15 +1781,17 @@ export default function Reel() {
                         </div>
                       );
                     })}
-                    {showBestBar && (
+                    {showBestBar && (() => {
+                      const bestRank = getMilestone(allTimeBest);
+                      return (
                       <div style={{
                         display: "flex", alignItems: "center", gap: 12, marginTop: 4,
                         borderTop: "1px solid #D4C4A810", paddingTop: 12,
                       }}>
                         <span style={{
-                          fontFamily: "'Space Mono', monospace", fontSize: 10, color: "#D4C4A8",
-                          minWidth: 20, textAlign: "right",
-                        }}>★</span>
+                          fontFamily: "'Space Mono', monospace", fontSize: 9, color: "#D4C4A8",
+                          minWidth: 20, textAlign: "right", letterSpacing: 1,
+                        }}>best</span>
                         <div style={{ flex: 1, height: 32, background: "#D4C4A808", borderRadius: 8, overflow: "hidden" }}>
                           <div style={{
                             height: "100%", width: `${Math.max((allTimeBest / maxVal) * 100, 12)}%`,
@@ -1799,9 +1804,10 @@ export default function Reel() {
                             }}>{allTimeBest}</span>
                           </div>
                         </div>
-                        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "#6B8B5A", letterSpacing: 1 }}>BEST</span>
+                        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: "#6B8B5A", letterSpacing: 1 }}>{bestRank.title}</span>
                       </div>
-                    )}
+                      );
+                    })()}
                   </div>
                 </div>
               );
@@ -1860,7 +1866,9 @@ export default function Reel() {
         }
         @keyframes confettiRain {
           0% { opacity: 1; transform: translateY(0) translateX(0) rotate(0deg); }
-          80% { opacity: 0.8; }
+          20% { opacity: 1; transform: translateY(22vh) translateX(calc(var(--drift) * 0.3)) rotate(calc(var(--rot) * 0.2)); }
+          60% { opacity: 0.9; transform: translateY(66vh) translateX(calc(var(--drift) * 0.7)) rotate(calc(var(--rot) * 0.6)); }
+          90% { opacity: 0.4; transform: translateY(100vh) translateX(var(--drift)) rotate(var(--rot)); }
           100% { opacity: 0; transform: translateY(110vh) translateX(var(--drift)) rotate(var(--rot)); }
         }
         ::selection { background: #D4C4A830; }
