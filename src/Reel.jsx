@@ -1382,7 +1382,7 @@ export default function Reel() {
     }))
   ).current;
   const [showRank, setShowRank] = useState(false);
-  const [rankRevealIndex, setRankRevealIndex] = useState(-1);
+  const [showRankText, setShowRankText] = useState(false);
   const timerRef = useRef(null);
 
   // Persist to localStorage
@@ -1467,8 +1467,8 @@ export default function Reel() {
     if (gameState === "wrong" || gameState === "gameover") {
       setDisplayScore(0);
       setShowRank(false);
-      setRankRevealIndex(-1);
-      if (chain === 0) { setTimeout(() => { setShowRank(true); setRankRevealIndex(999); }, 300); return; }
+      setShowRankText(false);
+      if (chain === 0) { setTimeout(() => { setShowRank(true); setShowRankText(true); }, 300); return; }
       const duration = 1400;
       let frameId;
       const startTime = performance.now();
@@ -1488,21 +1488,10 @@ export default function Reel() {
     }
   }, [gameState, chain]);
 
-  // Typewriter rank reveal after confetti settles
+  // Rank reveal after confetti settles
   useEffect(() => {
     if ((gameState === "wrong" || gameState === "gameover") && chain > 0) {
-      const confettiDone = 3200;
-      const perChar = 28;
-      const timeout = setTimeout(() => {
-        const m = getMilestone(chain);
-        const fullText = "Your Rank: " + m.title;
-        let i = 0;
-        const interval = setInterval(() => {
-          i++;
-          setRankRevealIndex(i);
-          if (i >= fullText.length) clearInterval(interval);
-        }, perChar);
-      }, confettiDone);
+      const timeout = setTimeout(() => setShowRankText(true), 3200);
       return () => clearTimeout(timeout);
     }
   }, [gameState, chain]);
@@ -1737,16 +1726,12 @@ export default function Reel() {
 
             {(() => {
               const m = getMilestone(chain);
-              const fullText = "Your Rank: " + m.title;
-              return rankRevealIndex >= 0 ? (
+              return showRankText ? (
                 <div style={{
                   fontSize: 14, fontFamily: "'Syne', sans-serif", fontWeight: 700,
                   letterSpacing: 4, color: "#BBA149", marginBottom: 4, textTransform: "uppercase",
-                  minHeight: 20,
-                }}>
-                  {fullText.slice(0, Math.min(rankRevealIndex, fullText.length))}
-                  {rankRevealIndex < fullText.length && <span style={{ opacity: 0.6, animation: "blink 0.4s infinite" }}>|</span>}
-                </div>
+                  animation: "rankPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both",
+                }}>Your Rank: {m.title}</div>
               ) : <div style={{ height: 20 }} />;
             })()}
 
@@ -1881,6 +1866,10 @@ export default function Reel() {
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(12px); }
           to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes rankPop {
+          0% { opacity: 0; transform: scale(0.6); }
+          100% { opacity: 1; transform: scale(1); }
         }
         @keyframes blink {
           0%, 100% { opacity: 1; }
