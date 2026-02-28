@@ -1549,6 +1549,7 @@ export default function Reel() {
               background: "#BBA14920", border: "1px solid #BBA14940",
               fontSize: 11, fontFamily: "'Space Mono', monospace", color: "#BBA149",
               letterSpacing: 2, marginBottom: 32,
+              opacity: 0, animation: "fadeIn 0.6s ease 0.3s forwards",
             }}>
               Cinema. Trivia. Action.
             </div>
@@ -1556,11 +1557,14 @@ export default function Reel() {
             <h1 style={{
               fontSize: 72, fontWeight: 800, fontFamily: "'Syne', sans-serif",
               color: "#EBE4CF", margin: "0 0 12px", lineHeight: 0.9, letterSpacing: -2,
+              opacity: 0, animation: "projectorFlicker 2.2s ease-out 0.6s 1 normal forwards",
+              textShadow: "0 0 20px #EBE4CF40, 0 0 60px #EBE4CF15",
             }}>reel</h1>
 
             <p style={{
               fontSize: 16, fontFamily: "'DM Sans', sans-serif", color: "#BBA149",
               lineHeight: 1.6, maxWidth: 280, margin: "0 auto 48px", fontWeight: 400,
+              opacity: 0, animation: "fadeIn 0.6s ease 2.6s forwards",
             }}>
               One wrong answer and it's a wrap. How far can you go?
             </p>
@@ -1570,7 +1574,8 @@ export default function Reel() {
               padding: "16px 56px", borderRadius: 40,
               fontSize: 15, fontWeight: 700, fontFamily: "'Syne', sans-serif",
               letterSpacing: 2, textTransform: "uppercase", cursor: "pointer",
-              transition: "all 0.2s",
+              transition: "transform 0.2s",
+              opacity: 0, animation: "fadeIn 0.6s ease 3.0s forwards",
             }}
             onMouseEnter={(e) => { e.target.style.transform = "scale(1.03)"; }}
             onMouseLeave={(e) => { e.target.style.transform = "scale(1)"; }}
@@ -1581,6 +1586,7 @@ export default function Reel() {
             {bestChain > 0 && (
               <div style={{
                 marginTop: 32, fontSize: 13, fontFamily: "'Space Mono', monospace", color: "#BBA149",
+                opacity: 0, animation: "fadeIn 0.6s ease 3.0s forwards",
               }}>
                 best: <span style={{ color: "#EBE4CF" }}>{bestChain}</span>
               </div>
@@ -1866,6 +1872,27 @@ export default function Reel() {
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(12px); }
           to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes projectorFlicker {
+          0% { opacity: 0; text-shadow: none; }
+          4% { opacity: 0.7; text-shadow: 0 0 40px #EBE4CF80; }
+          6% { opacity: 0.1; text-shadow: none; }
+          10% { opacity: 0.85; text-shadow: 0 0 30px #EBE4CF60; }
+          12% { opacity: 0.15; text-shadow: none; }
+          16% { opacity: 0.9; text-shadow: 0 0 35px #EBE4CF70; }
+          20% { opacity: 0.2; text-shadow: none; }
+          25% { opacity: 0.8; text-shadow: 0 0 25px #EBE4CF50; }
+          28% { opacity: 0.3; text-shadow: none; }
+          34% { opacity: 0.85; text-shadow: 0 0 30px #EBE4CF60; }
+          38% { opacity: 0.5; text-shadow: 0 0 10px #EBE4CF30; }
+          44% { opacity: 0.95; text-shadow: 0 0 25px #EBE4CF50; }
+          48% { opacity: 0.7; text-shadow: 0 0 15px #EBE4CF40; }
+          55% { opacity: 1; text-shadow: 0 0 20px #EBE4CF40, 0 0 60px #EBE4CF15; }
+          60% { opacity: 0.85; text-shadow: 0 0 15px #EBE4CF30; }
+          68% { opacity: 1; text-shadow: 0 0 20px #EBE4CF40, 0 0 60px #EBE4CF15; }
+          72% { opacity: 0.92; text-shadow: 0 0 18px #EBE4CF35; }
+          80% { opacity: 1; text-shadow: 0 0 20px #EBE4CF40, 0 0 60px #EBE4CF15; }
+          100% { opacity: 1; text-shadow: 0 0 20px #EBE4CF40, 0 0 60px #EBE4CF15; }
         }
         @keyframes rankPop {
           0% { opacity: 0; transform: scale(0.6); }
